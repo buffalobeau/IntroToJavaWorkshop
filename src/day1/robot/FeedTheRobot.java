@@ -1,9 +1,9 @@
 package day1.robot;
+import java.awt.Color;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.Label;
 import java.awt.event.KeyEvent;
-
 
 import org.jointheleague.graphical.robot.Robot;
 import org.jointheleague.graphical.robot.RobotWindow;
@@ -11,56 +11,47 @@ import org.jointheleague.graphical.robot.RobotWindow;
 
 public class FeedTheRobot implements KeyEventDispatcher
 {
-	Robot robot = new Robot();
-	
+	Robot geff = new Robot();
+	Robot geff2 = new Robot();
 	private void feedTheRobot()
 	{
+		geff2.penDown();
+		geff.penDown();
+		geff2.setPenColor(Color.ORANGE);
+		geff.setPenColor(Color.magenta);
+		geff2.penUp();
+		geff2.moveTo(500, 500);
+		geff2.penDown();
 		// 1. use the addFood() method to add food for the robot
-		
 	}
 
 private void goUp()
 	{
 		// 2. Print "going up". Test it out by running your code and pressing the up key
-	
+	System.out.println("going up");
 		// 3. Make the robot move up the screen
-	
+	geff.move(50);
 	}
 
 	private void goDown()
 	{
 		// 4. make the robot move down the screen
 		
+		geff.move(-50);
 	}
 	
 	private void goLeft()
 	{
 		// 5. make the robot move left
+	geff.turn(-10);
 	}
 
 	private void goRight()
 	{
 		// 6. make the robot move right
-		
+	geff.turn(10);
 	}
 
-	private void checkIfFoodFound() throws Exception
-	{
-		int robotLocationX = robot.getX();
-		int robotLocationY = robot.getY();
-	
-		// 7. Print out the variables for robotLocationX and robotLocationY
-		
-		// 8. if robot is at same location as food
-			// print "chomp"
-			// say "chomp" with Runtime.getRuntime().exec("say chomp");
-			// call the eatFood() method
-		
-	}
-
-private void eatFood() {
-		component.setText("");
-	}
 
 	private void addFood(int x, int y)
 	{
@@ -69,7 +60,7 @@ private void eatFood() {
 		
 	}
 
-	RobotWindow window = robot.getWindow();
+	RobotWindow window = geff.getWindow();
 	Label component = new Label("*");
 
 	public static void main(String[] args)
@@ -82,8 +73,8 @@ private void eatFood() {
 	private void controlTheRobot() 
 {
 KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(this);
-		robot.show();
-		robot.setSpeed(10);
+		geff.show();
+		geff.setSpeed(10);
 	}
 
 	public boolean dispatchKeyEvent(KeyEvent e)
@@ -98,9 +89,14 @@ KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(this
 				goUp();
 			if (e.getKeyCode() == KeyEvent.VK_DOWN)
 				 goDown();
-			try {
-			checkIfFoodFound();
-			} catch (Exception exception) {}
+			if (e.getKeyCode() == KeyEvent.VK_D)
+				geff2.turn(10);
+			if(e.getKeyCode() == KeyEvent.VK_A)
+				geff2.turn(-10);
+			if(e.getKeyCode() == KeyEvent.VK_W)
+				geff2.move(50);
+			if(e.getKeyCode() == KeyEvent.VK_S)
+				geff2.move(-50);
 		}
 		return false;
 	}
